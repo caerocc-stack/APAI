@@ -1,0 +1,66 @@
+{
+  "descripcion": "Mapa de imágenes del sitio APAI — editar para agregar o quitar fotos",
+  "carpeta": "images/",
+  "secciones": {
+    "logos": {
+      "descripcion": "Logos fijos del sitio (no se muestran en galerías)",
+      "imagenes": [
+        {"archivo": "favicon.png", "seccion_html": "HEAD", "descripcion": "Favicon del navegador"},
+        {"archivo": "logo-nav.png", "seccion_html": "NAV", "descripcion": "Logo en la barra de navegación"},
+        {"archivo": "logo-hero.png", "seccion_html": "HERO", "descripcion": "Logo grande en la portada"},
+        {"archivo": "logo-footer.png", "seccion_html": "FOOTER", "descripcion": "Logo en el pie de página"}
+      ]
+    },
+    "fondos_tarjetas": {
+      "descripcion": "Miniaturas de las 7 tarjetas de categorías (sección Fondos)",
+      "imagenes": [
+        {"archivo": "fondos-limpieza.jpg", "categoria": "limpieza", "titulo": "Limpieza e higiene"},
+        {"archivo": "fondos-fumigacion.jpg", "categoria": "fumigacion", "titulo": "Fumigación y sanidad"},
+        {"archivo": "fondos-luminarias.jpg", "categoria": "luminarias", "titulo": "Iluminación y seguridad"},
+        {"archivo": "fondos-herramientas.jpg", "categoria": "herramientas", "titulo": "Herramientas e insumos"},
+        {"archivo": "fondos-informatica.jpg", "categoria": "informatica", "titulo": "Equipamiento informático"},
+        {"archivo": "fondos-impresion3d.jpg", "categoria": "impresion3d", "titulo": "Impresión 3D"},
+        {"archivo": "fondos-pintura.jpg", "categoria": "pintura", "titulo": "Pintura de aeronaves"}
+      ]
+    },
+    "lightbox_categorias": {
+      "descripcion": "Fotos detalladas que se abren al hacer clic en cada tarjeta de fondos",
+      "categorias": {
+        "limpieza": [
+          {"archivo": "cat-limpieza-insumos.jpg", "descripcion": "Insumos de limpieza adquiridos por la APAI"}
+        ],
+        "luminarias": [
+          {"archivo": "cat-luminarias-acceso.jpg", "descripcion": "Iluminación nocturna del acceso al INAC"},
+          {"archivo": "cat-luminarias-led-corredor.jpg", "descripcion": "Luminarias LED en el corredor de tránsito"}
+        ],
+        "herramientas": [
+          {"archivo": "cat-herramientas-ferreteria.jpg", "descripcion": "Insumos de ferretería y taller"}
+        ],
+        "pintura": [
+          {"archivo": "cat-pintura-alumno-carlinga.jpg", "descripcion": "Alumno pintando la carlinga de una aeronave"},
+          {"archivo": "cat-pintura-ala-preparacion.jpg", "descripcion": "Ala de aeronave enmascarada para pintura"},
+          {"archivo": "cat-pintura-fuselaje.jpg", "descripcion": "Fuselaje enmascarado y pintado frente al hangar"}
+        ],
+        "informatica": [
+          {"archivo": "cat-informatica-ssd.jpg", "descripcion": "Discos SSD Kingston para el laboratorio"},
+          {"archivo": "cat-informatica-laboratorio.jpg", "descripcion": "Laboratorio de computación con equipos actualizados"}
+        ],
+        "impresion3d": [
+          {"archivo": "cat-impresion3d-filamentos.jpg", "descripcion": "Filamentos PLA Grilon3 para impresoras 3D"},
+          {"archivo": "cat-impresion3d-elegoo.jpg", "descripcion": "Impresora 3D Elegoo en el aula taller"}
+        ],
+        "fumigacion": [
+          {"archivo": "cat-fumigacion-interior.jpg", "descripcion": "Fumigación interior del hall principal"},
+          {"archivo": "cat-fumigacion-exterior.jpg", "descripcion": "Fumigación exterior de jardines y espacios verdes"}
+        ]
+      }
+    },
+    "galeria_inac_local": {
+      "descripcion": "Fotos locales en la galería INAC (el resto viene de inac.edu.ar)",
+      "imagenes": [
+        {"archivo": "galeria-lab-electronica.jpg", "descripcion": "Alumnos con osciloscopio en lab de electrónica"},
+        {"archivo": "galeria-lab-electronica-2.jpg", "descripcion": "Edificio principal CIATA con planeador"}
+      ]
+    }
+  }
+}
