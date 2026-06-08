@@ -760,17 +760,23 @@ function animateCounters() {
   document.querySelectorAll('.stat-num').forEach(el => {
     if (el.dataset.counted) return;
     const text = el.textContent.trim();
-    const num = parseInt(text.replace(/[^0-9]/g, ''));
+    if (/[a-zA-Z]/.test(text.replace(/[%$.,]/g, ''))) return;
+    const numMatch = text.match(/[\d.,]+/);
+    if (!numMatch) return;
+    const rawNum = numMatch[0].replace(/\./g, '').replace(',', '.');
+    const num = parseFloat(rawNum);
     if (isNaN(num) || num === 0) return;
-    const prefix = text.match(/^[^0-9]*/)[0];
-    const suffix = text.match(/[^0-9]*$/)[0];
+    const prefix = text.substring(0, text.indexOf(numMatch[0]));
+    const suffix = text.substring(text.indexOf(numMatch[0]) + numMatch[0].length);
+    const isInt = Number.isInteger(num);
     el.dataset.counted = '1';
     const duration = 1800;
     const start = performance.now();
     function step(now) {
       const pct = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - pct, 3);
-      el.textContent = prefix + Math.floor(num * eased).toLocaleString('es-AR') + suffix;
+      const val = isInt ? Math.floor(num * eased) : (num * eased).toFixed(0);
+      el.textContent = prefix + Number(val).toLocaleString('es-AR') + suffix;
       if (pct < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
