@@ -79,8 +79,8 @@ html { scroll-behavior: smooth; }
 
 /* ── BASE TYPOGRAPHY ── */
 body {
-  background: var(--white);
-  color: var(--text-main);
+  background: var(--black);
+  color: var(--white);
   font-family: var(--font-main);
   font-weight: 400;
   line-height: 1.8;
@@ -445,7 +445,7 @@ section {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 4px;
-  color: var(--celeste-dark);
+  color: var(--celeste-light);
   text-transform: uppercase;
   margin-bottom: 10px;
   display: flex;
@@ -456,7 +456,7 @@ section {
   content: '';
   width: 22px;
   height: 1px;
-  background: var(--celeste);
+  background: var(--celeste-light);
 }
 .sec-title {
   font-family: var(--font-serif);
@@ -466,13 +466,14 @@ section {
   letter-spacing: -2px;
   margin-bottom: 16px;
   text-wrap: balance;
+  color: var(--white);
 }
-.sec-title em { color: var(--celeste-dark); font-style: normal; }
-.sec-title .g { color: var(--gold-dim); font-style: normal; }
+.sec-title em { color: var(--celeste); font-style: normal; }
+.sec-title .g { color: var(--gold); font-style: normal; }
 .sec-lead {
   font-family: var(--font-body);
   font-size: 17px;
-  color: var(--text-sec);
+  color: rgba(248, 249, 250, 0.55);
   max-width: 640px;
   line-height: 1.85;
   margin-bottom: 56px;
@@ -482,7 +483,7 @@ section {
 /* ═══════════════════════════════════════════ */
 /*  QUIÉNES SOMOS                              */
 /* ═══════════════════════════════════════════ */
-#quienes { background: var(--white); }
+#quienes { background: var(--black-soft); }
 .q-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -491,12 +492,12 @@ section {
 }
 .q-text p {
   font-family: var(--font-body);
-  color: var(--text-sec);
+  color: rgba(248, 249, 250, 0.65);
   margin-bottom: 16px;
   font-size: 15.5px;
   line-height: 1.9;
 }
-.q-text strong { color: var(--celeste-dark); font-weight: 600; }
+.q-text strong { color: var(--celeste); font-weight: 600; }
 .q-imgs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -507,7 +508,7 @@ section {
 .img-frame {
   overflow: hidden;
   position: relative;
-  background: var(--celeste-bg);
+  background: var(--black-panel);
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
@@ -635,7 +636,7 @@ section {
 /* ═══════════════════════════════════════════ */
 /*  GALLERY — MASONRY-LIKE                     */
 /* ═══════════════════════════════════════════ */
-#galeria-inac { background: var(--celeste-bg); }
+#galeria-inac { background: var(--black); }
 .ig-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -818,7 +819,7 @@ section {
 /* ═══════════════════════════════════════════ */
 /*  PROYECTO                                   */
 /* ═══════════════════════════════════════════ */
-#proyecto { background: var(--celeste-bg); }
+#proyecto { background: var(--black-panel); }
 .proyecto-box {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-gold);
