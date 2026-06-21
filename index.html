@@ -128,10 +128,11 @@ nav {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(201, 168, 76, 0.12);
   border-radius: var(--radius-pill);
-  padding: 0 36px;
+  padding: 0 30px;
   height: 64px;
-  max-width: 920px;
+  max-width: 1120px;
   width: calc(100% - 40px);
+  gap: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -162,6 +163,7 @@ nav.nav-scrolled {
   letter-spacing: 3px;
   color: #F5D060;
   text-shadow: 0 0 20px rgba(245, 208, 96, 0.5);
+  white-space: nowrap;
 }
 .nav-sub {
   font-family: var(--font-ui);
@@ -170,18 +172,21 @@ nav.nav-scrolled {
   letter-spacing: 2px;
   color: rgba(255, 230, 120, 0.8);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .nav-links {
   display: flex;
-  gap: 22px;
+  align-items: center;
+  gap: 26px;
   list-style: none;
 }
 .nav-links a {
   font-family: var(--font-ui);
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--white-dim);
   text-decoration: none;
   padding: 6px 0;
@@ -634,64 +639,93 @@ section {
 .fondo-card:active { transform: scale(0.97); transition-duration: 120ms; }
 
 /* ═══════════════════════════════════════════ */
-/*  GALLERY — MASONRY-LIKE                     */
+/*  GALLERY — INFINITE MARQUEE (2 ROWS)        */
 /* ═══════════════════════════════════════════ */
-#galeria-inac { background: var(--black); }
-.ig-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 180px;
-  gap: 10px;
+#galeria-inac { background: var(--black); overflow: hidden; }
+
+/* full-bleed marquee that escapes the section padding */
+.ig-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0 -80px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
 }
-/* Make some cells span 2 rows for visual interest */
-.ig-cell:nth-child(1),
-.ig-cell:nth-child(4),
-.ig-cell:nth-child(9),
-.ig-cell:nth-child(14),
-.ig-cell:nth-child(19),
-.ig-cell:nth-child(24) { grid-row: span 2; }
+.ig-row {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  will-change: transform;
+}
+.ig-row--left  { animation: igMarqueeLeft  64s linear infinite; }
+.ig-row--right { animation: igMarqueeRight 64s linear infinite; }
+@keyframes igMarqueeLeft  { from { transform: translateX(0); }      to { transform: translateX(-50%); } }
+@keyframes igMarqueeRight { from { transform: translateX(-50%); }   to { transform: translateX(0); } }
+
+/* pause the hovered row only — the other keeps gliding */
+.ig-row:hover { animation-play-state: paused; }
 
 .ig-cell {
+  flex: 0 0 auto;
+  width: 320px;
+  height: 220px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
   background: var(--black-panel);
-  border-radius: var(--radius-btn);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.45s var(--ease-out);
 }
 .ig-cell img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: all 0.6s var(--ease-out);
-  opacity: 0.78;
-  filter: brightness(0.85);
+  transition: transform 0.7s var(--ease-out), opacity 0.5s var(--ease-out), filter 0.5s var(--ease-out);
+  opacity: 0.72;
+  filter: brightness(0.8) saturate(0.9);
 }
 .ig-cap {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(8, 9, 12, 0.9), transparent);
-  padding: 20px 10px 8px;
+  background: linear-gradient(to top, rgba(8, 9, 12, 0.95) 10%, rgba(8, 9, 12, 0.4) 70%, transparent);
+  padding: 30px 16px 14px;
   font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 1px;
-  color: rgba(248, 249, 250, 0.6);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: rgba(232, 212, 139, 0.85);
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity 0.3s var(--ease-out);
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .ig-cell:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(91, 175, 214, 0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 22px 50px rgba(91, 175, 214, 0.22);
+    border-color: rgba(91, 175, 214, 0.4);
   }
-  .ig-cell:hover img { opacity: 1; transform: scale(1.06); filter: brightness(1); }
-  .ig-cell:hover .ig-cap { opacity: 1; }
+  .ig-cell:hover img { opacity: 1; transform: scale(1.08); filter: brightness(1) saturate(1.05); }
+  .ig-cell:hover .ig-cap { opacity: 1; transform: translateY(0); }
+}
+.ig-cell:active { transform: scale(0.97); transition-duration: 120ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ig-marquee {
+    flex-direction: row;
+    overflow-x: auto;
+    margin: 0 -80px;
+    padding: 0 80px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ig-row { animation: none; width: auto; }
+  .ig-row--right { display: none; }
 }
 
 /* ═══════════════════════════════════════════ */
@@ -1315,7 +1349,7 @@ footer {
   .hero-content { padding: 0 40px 80px; }
   footer { padding: 36px 40px; }
   .fondos-grid { grid-template-columns: repeat(2, 1fr); }
-  .ig-grid { grid-template-columns: repeat(3, 1fr); }
+  .ig-marquee { margin: 0 -40px; }
   .ref-cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
@@ -1333,16 +1367,9 @@ footer {
   .hamburger { display: flex; }
   .q-grid { grid-template-columns: 1fr; gap: 36px; }
   .fondos-grid, .fondos-grid-2 { grid-template-columns: 1fr; }
-  .ig-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 160px;
-  }
-  .ig-cell:nth-child(1),
-  .ig-cell:nth-child(4),
-  .ig-cell:nth-child(9),
-  .ig-cell:nth-child(14),
-  .ig-cell:nth-child(19),
-  .ig-cell:nth-child(24) { grid-row: span 1; }
+  .ig-marquee { margin: 0 -24px; gap: 12px; }
+  .ig-row { gap: 12px; }
+  .ig-cell { width: 240px; height: 170px; }
   .ref-cards { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .stats-strip { flex-direction: column; }
@@ -1527,7 +1554,7 @@ footer {
   <div class="sec-label">03 — el instituto</div>
   <h2 class="sec-title">El INAC que <em>tu hijo habita</em></h2>
   <p class="sec-lead">Estas son las instalaciones, equipos y actividades del INAC. Hacé click en cualquier foto para verla en grande. Esto es lo que tu aporte ayuda a sostener.</p>
-  <div class="ig-grid reveal"><div class="ig-cell" onclick="openInacLightbox(0)" title="Boeing 737 Serie 200"><img src="https://inac.edu.ar/images/insitucionales/34675_avi%c3%b3n_boeing_737_serie_200.jpg" alt="Boeing 737 Serie 200" loading="lazy" onerror="this.parentElement.style.display='none'"><div class="ig-cap">Boeing 737 Serie 200</div></div>
+  <div class="ig-marquee reveal" id="igMarquee"><div class="ig-cell" onclick="openInacLightbox(0)" title="Boeing 737 Serie 200"><img src="https://inac.edu.ar/images/insitucionales/34675_avi%c3%b3n_boeing_737_serie_200.jpg" alt="Boeing 737 Serie 200" loading="lazy" onerror="this.parentElement.style.display='none'"><div class="ig-cap">Boeing 737 Serie 200</div></div>
 <div class="ig-cell" onclick="openInacLightbox(1)" title="Boeing 737 — exterior"><img src="https://inac.edu.ar/images/insitucionales/33575_avi%c3%b3n_boeing_737_serie_200.jpg" alt="Boeing 737 — exterior" loading="lazy" onerror="this.parentElement.style.display='none'"><div class="ig-cap">Boeing 737 — exterior</div></div>
 <div class="ig-cell" onclick="openInacLightbox(2)" title="Boeing 737 — cabina"><img src="https://inac.edu.ar/images/insitucionales/30989_avi%c3%b3n_boeing_737_serie_200.jpg" alt="Boeing 737 — cabina" loading="lazy" onerror="this.parentElement.style.display='none'"><div class="ig-cap">Boeing 737 — cabina</div></div>
 <div class="ig-cell" onclick="openInacLightbox(3)" title="Motores Pratt & Whitney JT9D"><img src="https://inac.edu.ar/images/insitucionales/89803_motores_pratt_and_whitney_jt9d_para_entrenamiento.jpg" alt="Motores Pratt & Whitney JT9D" loading="lazy" onerror="this.parentElement.style.display='none'"><div class="ig-cap">Motores Pratt & Whitney JT9D</div></div>
@@ -1834,6 +1861,26 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { document.getElementById('lb-inac').classList.remove('open'); document.body.style.overflow = ''; }
   }
 });
+
+// ── GALLERY MARQUEE — split into 2 rows + duplicate for seamless loop ──
+(function buildGalleryMarquee() {
+  const container = document.getElementById('igMarquee');
+  if (!container) return;
+  const cells = Array.from(container.querySelectorAll('.ig-cell'));
+  if (!cells.length) return;
+  const half = Math.ceil(cells.length / 2);
+  const groups = [cells.slice(0, half), cells.slice(half)];
+  container.innerHTML = '';
+  groups.forEach((group, idx) => {
+    const row = document.createElement('div');
+    row.className = 'ig-row ' + (idx === 0 ? 'ig-row--left' : 'ig-row--right');
+    // first copy (originals keep their onclick handlers)
+    group.forEach(c => row.appendChild(c));
+    // second copy (clones) for the seamless -50% loop
+    group.forEach(c => row.appendChild(c.cloneNode(true)));
+    container.appendChild(row);
+  });
+})();
 
 // ── REVEAL SCROLL — IntersectionObserver with stagger ──
 const revealObs = new IntersectionObserver((entries) => {
